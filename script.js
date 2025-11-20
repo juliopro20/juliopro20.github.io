@@ -101,3 +101,45 @@
                 icon.style.transform = 'scale(1) rotate(0deg)';
             });
         });
+
+
+        // Form submission
+document.querySelector('.contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('.submit-btn');
+    const originalBtnText = submitBtn.textContent;
+    
+    // 1. Visual Feedback (Loading)
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    // 2. Gather Data
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        // 3. Send Data to Backend
+        const response = await fetch('http://localhost:5000/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            alert('Message sent successfully! Thank you for reaching out.');
+            this.reset();
+        } else {
+            alert('Failed to send message. Please try again later.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please check your connection.');
+    } finally {
+        // 4. Reset Button
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+    }
+});
