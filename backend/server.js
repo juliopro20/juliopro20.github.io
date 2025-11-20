@@ -7,15 +7,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-// defined at the top
-const cors = require('cors'); 
 
 // REPLACE app.use(cors()); WITH THIS:
-app.use(cors({
-    origin: 'https://juliopro20-github-io.vercel.app', // Your Vercel frontend URL
-    methods: ['POST', 'GET', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 
 // Make sure this line comes BEFORE your app.post('/send-email'...)
 app.use(express.json());
