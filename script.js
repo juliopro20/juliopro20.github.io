@@ -120,7 +120,7 @@ document.querySelector('.contact-form').addEventListener('submit', async functio
 
     try {
         // 3. Send Data to Backend
-        const response = await fetch('http://localhost:5000/send-email', {
+        const response = await fetch('https://juliopro20-github-io-1.onrender.com/send-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
